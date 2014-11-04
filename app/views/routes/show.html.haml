@@ -1,0 +1,35 @@
+%h1 Liquid JSON
+%h2 Enter a URL to a JSON resource
+%form#fetch-json
+  %label URL
+  %input{type: 'text'}
+  %input{type: 'submit', value: 'Fetch JSON'}
+.json-viewer
+%h2 Select and name the variables you care about.
+%form#variable-form{name: 'variable', style: 'display: none'}
+  .variable-success{style: 'display:none'} Yay, you made a variable.
+  .variable-error{style: 'display:none'} Oops, something went wrong.
+  %label Variable Name for path:
+  .path
+  %input{type: 'text', name: 'variable[name]'}
+  %input{type: 'hidden', name: 'variable[path]'}
+  %input{type: 'hidden', name: 'variable[route_id]', value: "#{@route.id}"}
+  %input{type: 'submit', value: 'Create Variable'}
+%h2 Your Variables
+.variable-list
+  %ul
+    - @route.variables.each do |variable|
+      %li #{variable.name}: #{variable.path}
+%h2 Write Markdown using Liquid Templating
+.markdown
+  .success{style: 'display:none'} Yay, you made a template.
+  .error{style: 'display:none'} Oops, something went wrong.
+  %form{name: 'route'}
+    %textarea{name: 'route[markdown]'}
+    %input{type: 'submit', value: 'Get Embed Code'}
+.liquid
+%h2 Embed this code on your site.
+.embed
+  %pre
+    %code
+      = "<script src=\"http://www.liquidjson.com/embed/#{@route.route_id}\"></script>"

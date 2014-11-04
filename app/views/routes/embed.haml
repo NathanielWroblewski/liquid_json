@@ -1,0 +1,7 @@
+= "$.get('#{@route.json_url || "http://httpbin.org/headers"}', function(response) {".html_safe
+- template = @route.liquid
+- @route.variables.each do |variable|
+  - path = variable.path.split('.').join("']['")
+  - template = template.gsub(/\{\{#{variable.name}\}\}/, "' + response['#{path}'] + '")
+= "$('body').append('#{template.chomp}')".html_safe
+= "})".html_safe

@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  def index
+    route = Route.create(route_id: Digest::SHA2.new.to_s)
+    redirect_to '/routes/' + route.route_id
+  end
+
+  def test
+  end
 end
